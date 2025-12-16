@@ -26,3 +26,26 @@ When alarms fire, the agent investigates and proposes mitigation
 cdk destroy removes all resources
 
 Zero leftover billing
+
+🧪 Deploy the POC
+bash
+pip install -r requirements.txt
+cdk bootstrap
+cdk deploy
+You’ll get an output like:
+
+Code
+ApiUrl = https://xxxxxx.execute-api.ap-south-1.amazonaws.com
+Test it:
+
+Code
+curl "$ApiUrl?mode=normal"
+curl "$ApiUrl?mode=error"
+curl "$ApiUrl?mode=db_down"
+curl "$ApiUrl?mode=cpu_stress"
+CloudWatch alarms will fire → AWS DevOps Agent will investigate.
+
+🧹 Rollback (zero billing)
+bash
+cdk destroy
+Everything is removed cleanly.
