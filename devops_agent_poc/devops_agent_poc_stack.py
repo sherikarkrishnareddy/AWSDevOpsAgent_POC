@@ -8,12 +8,15 @@ from aws_cdk import (
     aws_cloudwatch as cloudwatch,
 )
 from constructs import Construct
+from aws_cdk import CfnOutput
 import os
 
 class DevOpsAgentPOCStack(Stack):
 
     def __init__(self, scope: Construct, construct_id: str, **kwargs):
         super().__init__(scope, construct_id, **kwargs)
+
+
 
         # DynamoDB table
         table = dynamodb.Table(
@@ -53,4 +56,5 @@ class DevOpsAgentPOCStack(Stack):
         )
 
         # Output API URL
-        self.api_url = api.api_endpoint
+        CfnOutput(self, "ApiUrl", value=api.api_endpoint)
+        #self.api_url = api.api_endpoint
